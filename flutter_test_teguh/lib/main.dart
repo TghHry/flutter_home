@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_test_teguh/meet_6/meet_6_contoh1.dart';
 // import 'package:flutter_test_teguh/meet_5/meet_5_contoh.dart';
 // import 'package:flutter_test_teguh/meet_6/meet_6_tugas.dart';
-import 'package:flutter_test_teguh/meet_7/meet_7_tugas.dart';
+// import 'package:flutter_test_teguh/meet_7/meet_7_tugas.dart';
+import 'package:flutter_test_teguh/meet_8/tugas_8.dart';
 // import 'package:flutter_test_teguh/tugas_4/tugas_4.dart';
 import 'theme/app_theme.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       
       // home: TugasEnamA(),
-      home: TugasTujuh(),
+      home: TugasDelapan(),
      
     );
   }
