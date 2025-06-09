@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_test_teguh/meet_6/meet_6_contoh.dart';
-// import 'package:flutter_test_teguh/meet_6/meet_6_contoh1.dart';
-// import 'package:flutter_test_teguh/meet_5/meet_5_contoh.dart';
-// import 'package:flutter_test_teguh/meet_6/meet_6_tugas.dart';
-// import 'package:flutter_test_teguh/meet_7/meet_7_tugas.dart';
-import 'package:flutter_test_teguh/meet_8/tugas_8.dart';
-// import 'package:flutter_test_teguh/tugas_4/tugas_4.dart';
+// import 'package:flutter_test_teguh/tugas_11_contoh/home.dart';
+// import 'package:flutter_test_teguh/tugas_13/login_page.dart';
+
+import 'package:flutter_test_teguh/utils/splash_screen.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -21,10 +18,13 @@ class MyApp extends StatelessWidget {
       title: 'Belajar_flutter',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      
+      initialRoute: SplashScreen.id,
+      routes: {
+        SplashScreen.id: (context) => SplashScreen(),
+        // TugasTigasBelas.id: (context) => TugasTigasBelas(),
+      },
       // home: TugasEnamA(),
-      home: TugasDelapan(),
-     
+      // home: JadwalPage(),
     );
   }
 }

@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter_test_teguh/main.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class appBar extends StatelessWidget {
+  const appBar({super.key});
 
   @override
   Widget build(BuildContext context) {

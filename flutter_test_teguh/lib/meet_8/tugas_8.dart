@@ -1,3 +1,10 @@
+import 'package:flutter_test_teguh/meet_1/meet1.dart';
+import 'package:flutter_test_teguh/meet_2/meet2.dart';
+import 'package:flutter_test_teguh/meet_2/tugas_flutter_2.dart';
+import 'package:flutter_test_teguh/meet_3/tugas_flutter3.dart';
+import 'package:flutter_test_teguh/meet_4/tugas_flutter_4.dart';
+import 'package:flutter_test_teguh/meet_5/tugas_flutter5.dart.dart';
+import 'package:flutter_test_teguh/meet_6/meet_6_tugas.dart';
 import 'package:flutter_test_teguh/meet_7/meet_7_tugas.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +53,7 @@ class TentangPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text(
               "Aplikasi Form Input dengan Navigasi Drawer",
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
@@ -70,6 +77,91 @@ class TentangPage extends StatelessWidget {
             Text(
               "Tanggal dibuat : 28-05-2025",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 20),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Satu'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfilPage(),
+                      ));
+                },
+              ),
+            ),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Dua'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasFlutter2(),
+                      ));
+                },
+              ),
+            ),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Tiga'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasTiga(),
+                      ));
+                },
+              ),
+            ),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Empat'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasEmpat(),
+                      ));
+                },
+              ),
+            ),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Lima'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasLima(),
+                      ));
+                },
+              ),
+            ),
+            Card(
+              elevation: 2,
+              child: ListTile(
+                leading: Icon(Icons.home_work),
+                title: Text('Tugas Enam'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasEnam(),
+                      ));
+                },
+              ),
             ),
           ],
         ),

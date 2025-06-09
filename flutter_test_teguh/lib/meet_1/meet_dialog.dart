@@ -1,15 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/meet_1/meet_dialogMyHomePage.dart';
 
-void main() {
-  runApp(MyApp());
+class MeetDialog extends StatefulWidget {
+  @override
+  State<MeetDialog> createState() => _MeetDialogState();
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class _MeetDialogState extends State<MeetDialog> {
+  String data = "Belum ada Input";
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyHomePage());
+    return Scaffold(
+      appBar: AppBar(title: Text("Dialog")),
+      body: Center(child: Text(data, style: TextStyle(fontSize: 35))),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          print("Telah diklik");
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Center(child: Text("Confirm")),
+                content: Text("Are You sure to delete this item ?"),
+                actions: [
+                  FloatingActionButton(
+                    onPressed: () {
+                      print("Klik Yes");
+                      setState(() {
+                        data = "Yes";
+                      });
+
+                      Navigator.of(context).pop(true);
+                    },
+                    child: Text("Yes"),
+                  ),
+                  FloatingActionButton(
+                    onPressed: () {
+                      print("Klik No");
+
+                      setState(() {
+                        data = "No";
+                      });
+                      Navigator.of(context).pop(false);
+                    },
+                    child: Text("No"),
+                  ),
+                ],
+              );
+            },
+          ).then((value) => print(value));
+        },
+        child: Icon(Icons.delete),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
   }
 }

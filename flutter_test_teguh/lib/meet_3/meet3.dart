@@ -29,7 +29,7 @@ class MeetTiga extends StatelessWidget {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Center(
                         child: Text(
                           'Formulir',

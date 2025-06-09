@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_teguh/meet_14_tugas_10_9.dart/my_home_page.dart';
+import 'package:flutter_test_teguh/meet_14_tugas_10_9.dart/tugas_10/tugas_10.dart';
+import 'package:flutter_test_teguh/meet_8/tugas_8.dart';
+import 'package:flutter_test_teguh/tugas_11_contoh/tugas_11.dart';
 
 class TugasTujuh extends StatefulWidget {
   const TugasTujuh({super.key});
@@ -117,17 +121,62 @@ class _TugasTujuhState extends State<TugasTujuh> {
                   Navigator.pop(context);
                 },
               ),
+              ListTile(
+                  leading: const Icon(Icons.access_time),
+                  title: const Text('Atur Pengingat'),
+                  onTap: () {
+                    setState(() => _selectedMenu = MenuType.time);
+                    Navigator.pop(context);
+                  }),
+              ListTile(
+                leading: const Icon(Icons.home_work),
+                title: const Text('Tugas Sembilan'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasSembilan(),
+                      ));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.home_work),
+                title: const Text('Tugas Sepuluh'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasSepuluh(),
+                      ));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.home_work),
+                title: const Text('Tugas Sebelas'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TugasSebelas(),
+                      ));
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.info),
+                title: const Text('information'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => TentangPage(),
+                      ));
+                },
+              ),
             ],
           ),
         ),
         body: Stack(
           children: [
-            SizedBox.expand(
-              child: Image.asset(
-                "assets/images/gradien.jpg",
-                fit: BoxFit.cover,
-              ),
-            ),
             SafeArea(
               child: Padding(
                 padding: EdgeInsets.all(16),
@@ -192,10 +241,9 @@ class _TugasTujuhState extends State<TugasTujuh> {
             DropdownButton<String>(
               value: _selectedCategory,
               hint: const Text("Pilih Kategori"),
-              items:
-                  ["Elektronik", "Pakaian", "Makanan", "Lainnya"]
-                      .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-                      .toList(),
+              items: ["Elektronik", "Pakaian", "Makanan", "Lainnya"]
+                  .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                  .toList(),
               onChanged: (val) => setState(() => _selectedCategory = val),
             ),
             if (_selectedCategory != null)

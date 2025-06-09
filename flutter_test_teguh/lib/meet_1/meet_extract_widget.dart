@@ -2,13 +2,10 @@ import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_test_teguh/meet_1/meet_1a.dart';
 
-void main() {
-  runApp(MyApp());
-}
 
-class MyApp extends StatelessWidget {
+class MeetExtractWidget extends StatelessWidget {
   final faker = Faker();
-  MyApp({super.key});
+  MeetExtractWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,209 +1,266 @@
+// import 'package:belajar_flutter/meet_2/tugas2_flutter.dart';
+// import 'package:belajar_flutter/meet_5/tugas5_flutter.dart';
 import 'package:flutter/material.dart';
 
-class TugasEnamA extends StatefulWidget {
-  const TugasEnamA({super.key});
+
+
+class TugasEnamContoh extends StatefulWidget {
+  const TugasEnamContoh({super.key});
 
   @override
-  State<TugasEnamA> createState() => _TugasEnamState();
+  State<TugasEnamContoh> createState() => _TugasEnamContohState();
 }
 
-class _TugasEnamState extends State<TugasEnamA> {
+class _TugasEnamContohState extends State<TugasEnamContoh> {
+  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true;
+
+  void _togglePasswordVisibility() {
+    setState(() {
+      _obscurePassword = !_obscurePassword;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF001F54), // Navy blue
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF001F54),
-        elevation: 0,
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context); // Kembali ke halaman sebelumnya
-          },
-        ),
-        title: const Text(
-          "Login",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 40),
-
-              // Header Text
-              const Text(
-                "Hello Welcome Back",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Stack(
+        children: [
+          Container(
+            alignment: Alignment.topCenter,
+            width: 400,
+            height: 400,
+            decoration: BoxDecoration(
+              color: Color(0xffD9D9D9),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/porsche.jpg'),
               ),
-              const SizedBox(height: 8),
-              const Text(
-                "Welcome back please\nsign in again",
-                textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white70, fontSize: 16),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Email Field
-              TextField(
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: "Email",
-                  hintStyle: TextStyle(color: Colors.white70),
-                  prefixIcon: Icon(Icons.email, color: Colors.white70),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white54),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // Password Field
-              TextField(
-                obscureText: true,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
-                  hintText: "Password",
-                  hintStyle: TextStyle(color: Colors.white70),
-                  prefixIcon: Icon(Icons.lock, color: Colors.white70),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white54),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 40),
-
-              // Login Button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  onPressed: () {
-                    // TODO: Handle login
-                  },
-                  child: const Text(
-                    "Login",
-                    style: TextStyle(
-                      color: Color(0xFF001F54),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              // Divider with "or"
-              Row(
-                children: const [
-                  Expanded(child: Divider(color: Colors.white54)),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10),
-                    child: Text("or", style: TextStyle(color: Colors.white70)),
-                  ),
-                  Expanded(child: Divider(color: Colors.white54)),
-                ],
-              ),
-
-              const SizedBox(height: 30),
-
-              // Facebook Button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  icon: const Icon(Icons.facebook, color: Colors.white),
-                  onPressed: () {},
-                  label: const Text(
-                    "Facebook",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-
-              // Google Button
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton.icon(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                  icon: Image.asset('assets/images/google.jpg', height: 24),
-                  onPressed: () {},
-                  label: const Text(
-                    "Gmail",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 30),
-
-              // Sign Up Link
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Already have an account? ",
-                    style: TextStyle(color: Colors.white70),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // TODO: Handle sign up
-                    },
-                    child: const Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  )
-                ],
-              ),
-
-              const SizedBox(height: 40),
-            ],
+            ),
           ),
-        ),
+
+          // decoration: const BoxDecoration(
+          //   image: DecorationImage(
+          //     image: AssetImage("assets/images/dodge.jpg"),
+          //     fit: BoxFit.none, // menyesuaikan gambar ke seluruh layar
+          //     alignment: Alignment.bottomCenter,
+          //   ),
+          // ),
+          SingleChildScrollView(
+            child: Column(
+              children: [         
+                const SizedBox(height: 80),
+                Text(
+                  "Hallo!",
+                 
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Please login to get full access from us",
+                  
+                ),
+                const SizedBox(height: 132), // spasi sebelum kotak hitam
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  width: double.infinity,
+                  decoration: const BoxDecoration(color: Colors.black),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Username",
+                       
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: usernameController,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "Agus Setiawan",
+                          hintStyle: const TextStyle(color: Colors.white54),
+                          filled: true,
+                          fillColor: Colors.grey[900],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Text(
+                        "Password",
+                        
+                      ),
+                      const SizedBox(height: 8),
+                      TextField(
+                        controller: passwordController,
+                        obscureText: _obscurePassword,
+                        style: const TextStyle(color: Colors.white),
+                        decoration: InputDecoration(
+                          hintText: "********",
+                          hintStyle: const TextStyle(color: Colors.white54),
+                          filled: true,
+                          fillColor: Colors.grey[900],
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              _obscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.white54,
+                            ),
+                            onPressed: _togglePasswordVisibility,
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 48,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xff7D00D0),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          onPressed: () {
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => const TugasLima(),
+                            //   ),
+                            // );
+                          },
+                          child: const Text(
+                            "Login",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xffffffff),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFF000000),
+                                    Color(0xFFFFFFFF),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: Text(
+                              "Or continue with",
+                            
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              height: 1,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Color(0xFFFFFFFF),
+                                    Color(0xFF000000),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: 90,
+                            height: 60,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff111111),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.elliptical(10, 10),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {},
+                              child: Image.asset('assets/images/google.png'),
+                            ),
+                          ),
+                          const SizedBox(width: 32),
+                          SizedBox(
+                            width: 87,
+                            height: 60,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff111111),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.elliptical(10, 10),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/tugas2");
+                              },
+                              child: Image.asset('assets/images/apple.png'),
+                            ),
+                          ),
+                          const SizedBox(width: 32),
+                          SizedBox(
+                            width: 90,
+                            height: 60,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Color(0xff111111),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(
+                                    Radius.elliptical(10, 10),
+                                  ),
+                                ),
+                              ),
+                              onPressed: () {
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     // builder: (context) => TugasDua(),
+                                //   ),
+                                // );
+                              },
+                              child: Image.asset('assets/images/twiter.png'),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 200,
+                  width: 400,
+                  decoration: BoxDecoration(color: Colors.black),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

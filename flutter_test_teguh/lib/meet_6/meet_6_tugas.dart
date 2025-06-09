@@ -19,7 +19,7 @@ class _TugasEnamState extends State<TugasEnam> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
-            // Navigator.pop(context); // Kembali ke halaman sebelumnya
+            Navigator.pop(context); // Kembali ke halaman sebelumnya
           },
         ),
         title: const Text("Login", style: TextStyle(color: Colors.white)),
@@ -185,10 +185,9 @@ class _TugasEnamState extends State<TugasEnam> {
                     child: Text(
                       "   Sign In",
                       style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline
-                      ),
+                          color: Colors.blue,
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                 ],
