@@ -1,7 +1,13 @@
+
 import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/tugas_13/laporan_per_orang_page.dart';
-import 'package:flutter_test_teguh/tugas_13/list_kehadiran_page.dart';
-import 'package:flutter_test_teguh/tugas_13/profil.dart';
+// import 'package:absensi_sederhana/profil.dart';
+// import 'package:absensi_sederhana/list_kehadiran.dart';
+// import 'package:absensi_sederhana/laporan_kehadiran.dart';
+import 'package:flutter_test_teguh/tugas_13_final/laporan_kehadiran_page.dart';
+import 'package:flutter_test_teguh/tugas_13_final/list_kehadiran_page.dart';
+import 'package:flutter_test_teguh/tugas_13_final/profil_page.dart';
+// import 'package:flutter_test_teguh/tugas_13_final/profil_page.dart';
+
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({super.key});
@@ -30,19 +36,19 @@ class DashboardPage extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => LaporanPerOrangPage(),
+                        builder: (context) => LaporanKehadiranPage(),
                       ));
                 },
                 child: Text("Laporan Kehadiran")),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfilPage(),
-                      ));
-                },
-                child: Text("Profil")),
+            // ElevatedButton(
+            //     onPressed: () {
+            //       Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) => ProfilPage(name: name, email: email, phone: phone),
+            //           ));
+            //     },
+            //     child: Text("Profil")),
           ],
         ),
       ),

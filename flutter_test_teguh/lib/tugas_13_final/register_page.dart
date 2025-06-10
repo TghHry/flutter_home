@@ -1,16 +1,18 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/tugas_13_contoh/db_helper.dart';
-import 'package:flutter_test_teguh/tugas_13_contoh/model.dart';
 
-class RegisterScreenApp extends StatefulWidget {
-  const RegisterScreenApp({super.key});
-  static const String id = "/register_screen_app";
+import 'package:flutter/material.dart';
+import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
+import 'package:flutter_test_teguh/tugas_13_final/model/model.dart';
+
+
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+  // static const String id = "/register_screen_app";
 
   @override
-  State<RegisterScreenApp> createState() => _RegisterScreenAppState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _RegisterScreenAppState extends State<RegisterScreenApp> {
+class _RegisterPageState extends State<RegisterPage> {
   bool _obscureTextA = true;
   final TextEditingController usernamecontroller = TextEditingController();
   final TextEditingController namecontroller = TextEditingController();
@@ -34,8 +36,7 @@ class _RegisterScreenAppState extends State<RegisterScreenApp> {
             // Navigator.pop(context); // Kembali ke halaman sebelumnya
           },
         ),
-        title:
-            Text("Registrasi", style: TextStyle(color: Colors.white)),
+        title: Text("Registrasi", style: TextStyle(color: Colors.white)),
       ),
       body: Form(
         key: _formkey,
@@ -61,13 +62,83 @@ class _RegisterScreenAppState extends State<RegisterScreenApp> {
                 Text(
                   "Welcome back please\nsign in again",
                   textAlign: TextAlign.center,
-                  style:
-                      TextStyle(color: Colors.white70, fontSize: 16),
+                  style: TextStyle(color: Colors.white70, fontSize: 16),
                 ),
 
                 const SizedBox(height: 40),
 
-                // Email Field
+                const SizedBox(height: 24),
+
+                // NAME
+                TextFormField(
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty ? "Wajib diisi" : null,
+                  style: TextStyle(color: Colors.white),
+                  controller: namecontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    errorStyle: TextStyle(color: Colors.white),
+                    hintText: "Enter Your Name",
+                    hintStyle: TextStyle(color: Colors.white70),
+                    prefixIcon: Icon(Icons.person, color: Colors.white70),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24),
+                // USERNAME
+                TextFormField(
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty ? "Wajib diisi" : null,
+                  style: TextStyle(color: Colors.white),
+                  controller: usernamecontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    errorStyle: TextStyle(color: Colors.white),
+                    hintText: "Enter Your Username",
+                    hintStyle: TextStyle(color: Colors.white70),
+                    prefixIcon: Icon(
+                      Icons.person_2_outlined,
+                      color: Colors.white70,
+                    ),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24),
+                //PHONE
+                TextFormField(
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty ? "Wajib diisi" : null,
+                  // style: GoogleFonts.roboto(color: Colors.white),
+                  controller: phonecontroller,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    errorStyle: TextStyle(color: Colors.white),
+                    hintText: "Enter Your Number",
+                    hintStyle: TextStyle(color: Colors.white70),
+                    prefixIcon: Icon(Icons.phone, color: Colors.white70),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white10),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 24),
+                 // Email Field
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) return "Wajib diisi";
@@ -90,77 +161,12 @@ class _RegisterScreenAppState extends State<RegisterScreenApp> {
                     ),
                   ),
                 ),
-
-                const SizedBox(height: 24),
-
-                // NAME
-                TextFormField(
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Wajib diisi" : null,
-                  style: TextStyle(color: Colors.white),
-                  controller: namecontroller,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.white),
-                    hintText: "Enter Your Name",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    prefixIcon: Icon(Icons.person, color: Colors.white70),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white10),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
                 SizedBox(height: 24),
-                // USERNAME
-                TextFormField(
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Wajib diisi" : null,
-                  style: TextStyle(color: Colors.white),
-                  controller: usernamecontroller,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.white),
-                    hintText: "Enter Your Username",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    prefixIcon:
-                        Icon(Icons.person_2_outlined, color: Colors.white70),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white10),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 24),
-                //PHONE
-                TextFormField(
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Wajib diisi" : null,
-                  // style: GoogleFonts.roboto(color: Colors.white),
-                  controller: phonecontroller,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    errorStyle: TextStyle(color: Colors.white),
-                    hintText: "Enter Your Number",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    prefixIcon: Icon(Icons.phone, color: Colors.white70),
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white10),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white),
-                    ),
-                  ),
-                ),
-
                 // Password Field
                 TextFormField(
-                  validator: (value) =>
-                      value == null || value.isEmpty ? "Wajib diisi" : null,
+                  validator:
+                      (value) =>
+                          value == null || value.isEmpty ? "Wajib diisi" : null,
                   controller: passwordcontroller,
                   obscureText: _obscureTextA,
                   style: TextStyle(color: Colors.white70),
@@ -211,22 +217,20 @@ class _RegisterScreenAppState extends State<RegisterScreenApp> {
                         print("Number : ${phonecontroller.text}");
                         print("password : ${passwordcontroller.text}");
                         DbHelper.registerUser(
-                          data: UserModel(
-                          email:  emailcontroller.text, 
-                          phone:phonecontroller.text, 
-                          name :namecontroller.text,
+                          email: emailcontroller.text,
+                          phone: phonecontroller.text,
+                          name: namecontroller.text,
                           username: usernamecontroller.text,
-                          password:passwordcontroller.text,
-                          ),
-                          
+                          password: passwordcontroller.text,
                         );
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text(
-                                "Registration Successfull",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: const Color(0xFF001F54)),
+                            content: Text(
+                              "Registration Successfull",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            backgroundColor: const Color(0xFF001F54),
+                          ),
                         );
                       }
                       // TODO: Handle login
@@ -282,26 +286,6 @@ class _RegisterScreenAppState extends State<RegisterScreenApp> {
                 ),
 
                 const SizedBox(height: 16),
-
-                // Google Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white10,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                    ),
-                    icon: Image.asset("assets/images/google3.png", height: 14),
-                    onPressed: () {},
-                    label: Text(
-                      "Gmail",
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                ),
                 SizedBox(height: 30),
 
                 // Sign up link

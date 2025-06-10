@@ -1,5 +1,5 @@
 import 'package:flutter_test_teguh/meet_1/meet1.dart';
-import 'package:flutter_test_teguh/meet_2/meet2.dart';
+// import 'package:flutter_test_teguh/meet_2/meet2.dart';
 import 'package:flutter_test_teguh/meet_2/tugas_flutter_2.dart';
 import 'package:flutter_test_teguh/meet_3/tugas_flutter3.dart';
 import 'package:flutter_test_teguh/meet_4/tugas_flutter_4.dart';
