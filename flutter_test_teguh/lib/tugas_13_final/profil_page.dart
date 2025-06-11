@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_test_teguh/tugas_13_final/login_page.dart';
 // import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
-import 'package:flutter_test_teguh/tugas_13_final/dashboard_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:flutter_test_teguh/tugas_13_final/model/dashboard_page.dart';
 
 class ProfilPage extends StatefulWidget {
-
   final String name;
   final String email;
   final String phone;
@@ -22,13 +21,14 @@ class ProfilPage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilPage> {
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffEEEFE0),
       appBar: AppBar(
         title: Text('Profil'),
+        backgroundColor: Colors.teal[300],
+        leading: Container(),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -37,39 +37,72 @@ class _ProfilPageState extends State<ProfilPage> {
               await prefs.clear();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (_) => const TugasTigasBelas()),
+                MaterialPageRoute(builder: (_) => const LoginPage()),
               );
             },
           )
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Nama: ${widget.name}", style: TextStyle(fontSize: 18)),
-            Text("Email: ${widget.email}", style: TextStyle(fontSize: 18)),
+            Center(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundColor: Colors.grey[300],
+                child: Icon(Icons.person, size: 50, color: Colors.grey),
+              ),
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Icon(
+                  Icons.person,
+                  color: Colors.grey,
+                ),
+                SizedBox(width: 8),
+                Text(
+                  "Nama",
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(width: 8),
+                Text("${widget.name}", style: TextStyle(fontSize: 18)),
+                SizedBox(
+                  height: 4,
+                ),
+                Divider(),
+              ],
+            ),
+            Divider(),
+            Row(
+              children: [
+                Icon(
+                  Icons.email,
+                  color: Colors.grey,
+                ),
+                SizedBox(width: 8),
+                Text('Email'),
+              ],
+            ),
+            SizedBox(height: 4),
+            Text("${widget.email}", style: TextStyle(fontSize: 18)),
+            Divider(),
+            Row(
+              children: [
+                Icon(Icons.phone, color: Colors.grey),
+                SizedBox(width: 8),
+                Text(
+                  "Telepon",
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(height: 4),
+              ],
+            ),
             Text("Phone: ${widget.phone}", style: TextStyle(fontSize: 18)),
+            Divider(),
             SizedBox(height: 20),
-            ElevatedButton(
-              child: Text('Info Page'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => InfoPage()),
-                );
-              },
-            ),
-            ElevatedButton(
-              child: Text('Dashboard'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => DashboardPage()),
-                );
-              },
-            ),
           ],
         ),
       ),
@@ -101,4 +134,3 @@ class InfoPage extends StatelessWidget {
     );
   }
 }
-

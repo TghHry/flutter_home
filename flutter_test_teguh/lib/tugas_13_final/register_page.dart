@@ -1,12 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
-import 'package:flutter_test_teguh/tugas_13_final/model/model.dart';
-
+// import 'package:absensi_sederhana/database/db_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
-  // static const String id = "/register_screen_app";
+  static const String id = "/RegisterPage";
 
   @override
   State<RegisterPage> createState() => _RegisterPageState();
@@ -24,16 +22,15 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF001F54), // Navy blue
+      backgroundColor: const Color(0xFF819A91), // Navy blue
 
       appBar: AppBar(
-        backgroundColor: const Color(0xFF001F54),
+        backgroundColor: const Color(0xFF819A91),
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () {
-            // Navigator.pop(context); // Kembali ke halaman sebelumnya
           },
         ),
         title: Text("Registrasi", style: TextStyle(color: Colors.white)),
@@ -78,8 +75,10 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: namecontroller,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
+                    labelText: "Full Name",
+                    labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(color: Colors.white),
-                    hintText: "Enter Your Name",
+                    hintText: "Enter Your Full Name",
                     hintStyle: TextStyle(color: Colors.white70),
                     prefixIcon: Icon(Icons.person, color: Colors.white70),
                     enabledBorder: UnderlineInputBorder(
@@ -91,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 SizedBox(height: 24),
-                // USERNAME
+                // Nick Name
                 TextFormField(
                   validator:
                       (value) =>
@@ -100,15 +99,17 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: usernamecontroller,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
+                    labelText: "Nick Name",
+                    labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(color: Colors.white),
-                    hintText: "Enter Your Username",
+                    hintText: "Enter Your Full Nick Name",
                     hintStyle: TextStyle(color: Colors.white70),
                     prefixIcon: Icon(
                       Icons.person_2_outlined,
                       color: Colors.white70,
                     ),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white10),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -123,14 +124,17 @@ class _RegisterPageState extends State<RegisterPage> {
                           value == null || value.isEmpty ? "Wajib diisi" : null,
                   // style: GoogleFonts.roboto(color: Colors.white),
                   controller: phonecontroller,
+                  style: TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
+                    labelText: "Number Phone",
+                    labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(color: Colors.white),
                     hintText: "Enter Your Number",
                     hintStyle: TextStyle(color: Colors.white70),
                     prefixIcon: Icon(Icons.phone, color: Colors.white70),
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white10),
+                      borderSide: BorderSide(color: Colors.white),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.white),
@@ -138,7 +142,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
                 SizedBox(height: 24),
-                 // Email Field
+                // Email Field
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) return "Wajib diisi";
@@ -149,6 +153,8 @@ class _RegisterPageState extends State<RegisterPage> {
                   controller: emailcontroller,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
+                    labelText: "Email",
+                    labelStyle: TextStyle(color: Colors.white),
                     errorStyle: TextStyle(color: Colors.white),
                     hintText: "Enter Your Email",
                     hintStyle: TextStyle(color: Colors.white70),
@@ -229,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               "Registration Successfull",
                               style: TextStyle(color: Colors.white),
                             ),
-                            backgroundColor: const Color(0xFF001F54),
+                            backgroundColor: const Color(0xFF819A91),
                           ),
                         );
                       }
@@ -304,7 +310,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       child: Text(
                         "   Sign In",
                         style: TextStyle(
-                          color: Colors.blue,
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                         ),

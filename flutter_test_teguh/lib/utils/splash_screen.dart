@@ -1,11 +1,11 @@
 // import 'package:belajar_flutter2/study_case_meet_16/siswa_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/constant/app_image.dart';
+
 import 'package:flutter_test_teguh/constant/app_style.dart';
 import 'package:flutter_test_teguh/helper/preference.dart';
-import 'package:flutter_test_teguh/meet_8/tugas_8.dart';
-import 'package:flutter_test_teguh/tugas_13_contoh/login_page.dart';
+
+import 'package:flutter_test_teguh/tugas_13_final/login_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => TugasTigasBelas(),
+            builder: (context) => LoginPage(),
           ));
     });
   }

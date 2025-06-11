@@ -23,8 +23,6 @@ class MyApp extends StatelessWidget {
         SplashScreen.id: (context) => SplashScreen(),
         // TugasTigasBelas.id: (context) => TugasTigasBelas(),
       },
-      // home: TugasEnamA(),
-      // home: JadwalPage(),
     );
   }
 }

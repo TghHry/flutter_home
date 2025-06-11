@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
 // import 'package:absensi_sederhana/database/db_helper.dart';
 
-import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
 
 class EditKehadiranPage extends StatefulWidget {
-  final Map<String, dynamic>
-  data; // menerima data dari halaman sebelumnya (list)
+  static const String id = "/EditKehadiranPage";
+
+  final Map<String, dynamic> data; 
 
   EditKehadiranPage({required this.data});
 
@@ -55,7 +56,15 @@ class _EditKehadiranPageState extends State<EditKehadiranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Edit Kehadiran')),
+      backgroundColor: Color(0xffEEEFE0),
+      appBar: AppBar(
+        title: Text(
+          'Edit Kehadiran',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.teal[300],
+        centerTitle: true,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(

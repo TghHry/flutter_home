@@ -1,19 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
-import 'package:flutter_test_teguh/tugas_13_final/dashboard_page.dart';
-import 'package:flutter_test_teguh/tugas_13_final/register_page.dart';
-import 'package:flutter_test_teguh/tugas_13_final/profil_page.dart';
+// import 'package:absensi_sederhana/register_page.dart';
+// import 'package:absensi_sederhana/bottom_navigator.dart';
+// import 'package:absensi_sederhana/database/db_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
+import 'package:flutter_test_teguh/tugas_13_final/bottom_navigator.dart';
+import 'package:flutter_test_teguh/tugas_13_final/register_page.dart';
+import 'package:flutter/material.dart';
 
-class TugasTigasBelas extends StatefulWidget {
-  const TugasTigasBelas({super.key});
-  static const String id = "/TugasTigaBelas";
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+  static const String id = "/LoginPage";
 
   @override
-  State<TugasTigasBelas> createState() => _TugasTigaBelasState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _TugasTigaBelasState extends State<TugasTigasBelas> {
+class _LoginPageState extends State<LoginPage> {
   bool _obscureTextA = true;
   final TextEditingController emailcontroller = TextEditingController();
   final TextEditingController passwordcontroller = TextEditingController();
@@ -21,19 +23,14 @@ class _TugasTigaBelasState extends State<TugasTigasBelas> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF001F54), // Navy blue
+      backgroundColor: const Color(0xFF819A91), // Navy blue
       appBar: AppBar(
-        backgroundColor: const Color(0xFF001F54),
+        backgroundColor: const Color(0xFF819A91),
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => DashboardPage()),
-            );
-          },
+          onPressed: () {},
         ),
         title: const Text("Login", style: TextStyle(color: Colors.white)),
       ),
@@ -70,7 +67,9 @@ class _TugasTigaBelasState extends State<TugasTigasBelas> {
                 style: const TextStyle(color: Colors.white),
                 keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
-                  hintText: "Email",
+                  labelText: "Email",
+                  labelStyle: TextStyle(color: Colors.white),
+                  hintText: "Enter Your Email",
                   hintStyle: TextStyle(color: Colors.white70),
                   prefixIcon: Icon(Icons.email, color: Colors.white70),
                   enabledBorder: UnderlineInputBorder(
@@ -90,7 +89,9 @@ class _TugasTigaBelasState extends State<TugasTigasBelas> {
                 obscureText: _obscureTextA,
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
-                  hintText: "Password",
+                  labelText: "Password",
+                  labelStyle: TextStyle(color: Colors.white),
+                  hintText: "Enter Your Password",
                   hintStyle: TextStyle(color: Colors.white70),
                   prefixIcon: Icon(Icons.lock, color: Colors.white70),
                   enabledBorder: UnderlineInputBorder(
@@ -139,7 +140,7 @@ class _TugasTigaBelasState extends State<TugasTigasBelas> {
                           context,
                           MaterialPageRoute(
                             builder:
-                                (_) => ProfilPage(
+                                (_) => BottomNavigator(
                                   name: userData['name'],
                                   email: userData['email'],
                                   phone: userData['phone'],
@@ -220,7 +221,7 @@ class _TugasTigaBelasState extends State<TugasTigasBelas> {
                     child: Text(
                       "   Sign In",
                       style: TextStyle(
-                        color: Colors.blue,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
                       ),

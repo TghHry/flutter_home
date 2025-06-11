@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-// import 'package:absensi_sederhana/database/db_helper.dart';
-// import 'package:absensi_sederhana/edit_kehadiran.dart';
-// import 'package:absensi_sederhana/tambah_kehadiran.dart';
-
-import 'package:flutter_test_teguh/tugas_13_final/tambah_kehadiran_page.dart';
-import 'package:flutter_test_teguh/tugas_13_final/edit_kehadiran.dart';
 import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
+import 'package:flutter_test_teguh/tugas_13_final/edit_kehadiran.dart';
+import 'package:flutter_test_teguh/tugas_13_final/tambah_kehadiran_page.dart';
 
 class ListKehadiranPage extends StatefulWidget {
+  static const String id = "/ListKehadiran";
+
   @override
   _ListKehadiranPageState createState() => _ListKehadiranPageState();
 }
@@ -27,44 +25,70 @@ class _ListKehadiranPageState extends State<ListKehadiranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("List Kehadiran")),
+      backgroundColor: Color(0xffEEEFE0),
+      appBar: AppBar(
+        leading: Container(),
+        title: Text(
+          "List Kehadiran",
+          style: TextStyle(color: Colors.black),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.teal[300],
+      ),
       body: FutureBuilder<List<Map<String, dynamic>>>(
         future: getData(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
-          final data = snapshot.data!;
-          if (data.isEmpty)
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("Belum ada data kehadiran."));
+          }
+
+          final data = snapshot.data!;
           return ListView.builder(
+            padding: EdgeInsets.all(16.0),
             itemCount: data.length,
             itemBuilder: (context, index) {
               final item = data[index];
-              return ListTile(
-                leading: Icon(Icons.person),
-                title: Text(item['nama']),
-                subtitle: Text(
-                  "${item['keterangan']} (${item['tanggal'].substring(0, 10)})",
-                ),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => EditKehadiranPage(data: item),
-                          ),
-                        ).then((_) => setState(() {}));
-                      },
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ListTile(
+                    leading: Icon(Icons.person, color: Colors.teal),
+                    title: Text(
+                      item['nama'],
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => _deleteData(item['id']),
+                    subtitle: Text(
+                      "${item['keterangan']} (${item['tanggal'].substring(0, 10)})",
+                      style: TextStyle(color: Colors.black54),
                     ),
-                  ],
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit, color: Colors.teal),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditKehadiranPage(data: item),
+                              ),
+                            ).then((_) => setState(() {}));
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () => _deleteData(item['id']),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             },
@@ -72,14 +96,13 @@ class _ListKehadiranPageState extends State<ListKehadiranPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed:
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => TambahKehadiranPage()),
-            ).then((_) => setState(() {})), // Refresh after return
-        child: Icon(Icons.add),
+        backgroundColor: Colors.teal,
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TambahKehadiranPage()),
+        ).then((_) => setState(() {})), // Refresh after return
+        child: Icon(Icons.add, color: Colors.black),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

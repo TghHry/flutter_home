@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // untuk DateFormat
-
 import 'package:flutter_test_teguh/tugas_13_final/database/db_helper.dart';
+// import 'package:absensi_sederhana/database/db_helper.dart';
 
 class TambahKehadiranPage extends StatefulWidget {
   //StatefulWidget: karena membutuhkan state untuk form input
@@ -40,7 +40,15 @@ class _TambahKehadiranPageState extends State<TambahKehadiranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tambah Kehadiran')),
+      backgroundColor: Color(0xffEEEFE0),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Tambah Kehadiran',
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.teal[300],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Form(
@@ -55,13 +63,12 @@ class _TambahKehadiranPageState extends State<TambahKehadiranPage> {
               SizedBox(height: 16),
               DropdownButtonFormField<String>(
                 value: selectedKeterangan,
-                items:
-                    ['Hadir', 'Izin', 'Alpha'].map((status) {
-                      return DropdownMenuItem<String>(
-                        value: status,
-                        child: Text(status),
-                      );
-                    }).toList(),
+                items: ['Hadir', 'Izin', 'Alpha'].map((status) {
+                  return DropdownMenuItem<String>(
+                    value: status,
+                    child: Text(status),
+                  );
+                }).toList(),
                 onChanged: (val) {
                   setState(() {
                     selectedKeterangan = val!;
