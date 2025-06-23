@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart'; // untuk DateFormat
-import 'package:flutter_test_teguh/tugas_13/db_helper.dart';
+// import 'package:absensi_sederhana/database/db_helper.dart';
+// import 'package:absensi_sederhana/model/model.dart';
+import 'package:flutter_test_teguh/tugas_13/model/model.dart';
+import 'package:flutter_test_teguh/tugas_13/database/db_helper.dart';
 
-class TambahKehadiranPage extends StatefulWidget { //StatefulWidget: karena membutuhkan state untuk form input
+class TambahKehadiranPage extends StatefulWidget {
   @override
   _TambahKehadiranPageState createState() => _TambahKehadiranPageState();
 }
@@ -10,29 +13,28 @@ class TambahKehadiranPage extends StatefulWidget { //StatefulWidget: karena memb
 class _TambahKehadiranPageState extends State<TambahKehadiranPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController namaController = TextEditingController();
-
   String selectedKeterangan = 'Hadir';
-
-  //meyimpan data kehadiran. proses : 1. validasi form
-  // 2.dapatkan koneksi database, 3. ambil nilai dari input field, 4. format tanggal sekarang
-  //simpan ke tabel 'kehadiran', 6. kembali kehalaman sebelumnya
 
   void _simpanKehadiran() async {
     if (_formKey.currentState!.validate()) {
-      final db = await DbHelper.db();
+      final db = await DbHelper.initDB();
 
       String nama = namaController.text;
       String tanggal = DateFormat('yyyy-MM-dd').format(DateTime.now());
       String keterangan = selectedKeterangan;
 
-      await db.insert('kehadiran', {
-        'nama': nama,
-        'tanggal': tanggal,
-        'keterangan': keterangan,
-      });
+      // Menggunakan model Kehadiran
+      Kehadiran kehadiran = Kehadiran(
+        nama: nama,
+        keterangan: keterangan,
+        tanggal: tanggal,
+      );
+
+      await db.insert('kehadiran', kehadiran.toMap());
 
       print(
-          'Data yang disimpan: nama=$nama, tanggal=$tanggal, keterangan=$keterangan');
+        'Data yang disimpan: nama=${kehadiran.nama}, tanggal=${kehadiran.tanggal}, keterangan=${kehadiran.keterangan}',
+      );
 
       Navigator.pop(context);
     }
@@ -41,67 +43,58 @@ class _TambahKehadiranPageState extends State<TambahKehadiranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Tambah Kehadiran')),
+      backgroundColor: Color(0xffEEEFE0),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Tambah Kehadiran', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.teal[300],
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              TextFormField(
-                controller: namaController,
-                decoration: InputDecoration(labelText: 'Nama'),
-                validator: (val) => val!.isEmpty ? 'Wajib diisi' : null,
+        padding: const EdgeInsets.all(8.0),
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          elevation: 9,
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextFormField(
+                    controller: namaController,
+                    decoration: InputDecoration(labelText: 'Nama'),
+                    validator: (val) => val!.isEmpty ? 'Wajib diisi' : null,
+                  ),
+                  SizedBox(height: 16),
+                  DropdownButtonFormField<String>(
+                    value: selectedKeterangan,
+                    items: ['Hadir', 'Izin', 'Alpha'].map((status) {
+                      return DropdownMenuItem<String>(
+                        value: status,
+                        child: Text(status),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        selectedKeterangan = val!;
+                      });
+                    },
+                    decoration: InputDecoration(labelText: 'Keterangan'),
+                  ),
+                  SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _simpanKehadiran,
+                    child: Text('Simpan'),
+                  ),
+                ],
               ),
-              SizedBox(height: 16),
-              DropdownButtonFormField<String>(
-                value: selectedKeterangan,
-                items: ['Hadir', 'Izin', 'Alpha'].map((status) {
-                  return DropdownMenuItem<String>(
-                    value: status,
-                    child: Text(status),
-                  );
-                }).toList(),
-                onChanged: (val) {
-                  setState(() {
-                    selectedKeterangan = val!;
-                  });
-                },
-                decoration: InputDecoration(labelText: 'Keterangan'),
-              ),
-              SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: _simpanKehadiran,
-                child: Text('Simpan'),
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
-
-
-// Sintaks Penting yang Digunakan
-
-// Final Variables: Variabel yang tidak bisa diubah setelah inisialisasi
-
-// Required Parameters: Parameter wajib di constructor
-
-// Factory Constructor: Constructor khusus untuk membuat objek dari bentuk lain
-
-// Async/Await: Untuk operasi database yang asynchronous
-
-// StatefulWidget: Widget yang bisa berubah state-nya
-
-// GlobalKey<FormState>: Untuk mengontrol form
-
-// TextEditingController: Mengontrol input field
-
-// DateFormat: Memformat tanggal
-
-// DropdownButtonFormField: Input berbentuk dropdown
-
-// setState: Memperbarui tampilan ketika state berubah

@@ -1,22 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_test_teguh/tugas_13/db_helper.dart';
+// import 'package:absensi_sederhana/tambah_kehadiran.dart';
+// import 'package:absensi_sederhana/edit_kehadiran.dart';
+// import 'package:absensi_sederhana/database/db_helper.dart';
+// import 'package:absensi_sederhana/model/model.dart';
+
+import 'package:flutter_test_teguh/tugas_13/model/model.dart';
+import 'package:flutter_test_teguh/tugas_13/database/db_helper.dart';
 import 'package:flutter_test_teguh/tugas_13/edit_kehadiran_page.dart';
 import 'package:flutter_test_teguh/tugas_13/tambah_kehadiran.dart';
 
+
+
 class ListKehadiranPage extends StatefulWidget {
+  static const String id = "/ListKehadiran";
+
   @override
   _ListKehadiranPageState createState() => _ListKehadiranPageState();
 }
 
 class _ListKehadiranPageState extends State<ListKehadiranPage> {
-  //mengambil data dari tabel kehadiran, diurutkan berdasarkan tanggal terbaru
-  Future<List<Map<String, dynamic>>> getData() async {
-    final db = await DbHelper.db();
-    return await db.query('kehadiran', orderBy: 'tanggal DESC');
+  Future<List<Kehadiran>> getData() async {
+    final db = await DbHelper.initDB();
+    final List<Map<String, dynamic>> maps = await db.query(
+      'kehadiran',
+      orderBy: 'tanggal DESC',
+    );
+
+    return List.generate(maps.length, (i) {
+      return Kehadiran.fromMap(maps[i]); // Menggunakan metode dariMap
+    });
   }
 
   Future<void> _deleteData(int id) async {
-    final db = await DbHelper.db();
+    final db = await DbHelper.initDB();
     await db.delete('kehadiran', where: 'id = ?', whereArgs: [id]);
     setState(() {}); // Refresh UI
   }
@@ -24,42 +40,99 @@ class _ListKehadiranPageState extends State<ListKehadiranPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("List Kehadiran")),
-      body: FutureBuilder<List<Map<String, dynamic>>>(
+      backgroundColor: Color(0xffEEEFE0),
+      appBar: AppBar(
+        leading: Container(),
+        title: Text("List Kehadiran", style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Colors.teal[300],
+      ),
+      body: FutureBuilder<List<Kehadiran>>(
         future: getData(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
-          final data = snapshot.data!;
-          if (data.isEmpty)
+          } else if (snapshot.hasError) {
+            return Center(child: Text("Terjadi kesalahan: ${snapshot.error}"));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return Center(child: Text("Belum ada data kehadiran."));
+          }
+          final data = snapshot.data!;
           return ListView.builder(
+            padding: EdgeInsets.all(16.0),
             itemCount: data.length,
             itemBuilder: (context, index) {
               final item = data[index];
-              return ListTile(
-                title: Text(item['nama']),
-                subtitle: Text(
-                    "${item['keterangan']} (${item['tanggal'].substring(0, 10)})"),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => EditKehadiranPage(data: item),
-                          ),
-                        ).then((_) => setState(() {}));
-                      },
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: ListTile(
+                    leading: Icon(Icons.person, color: Colors.teal),
+                    title: Text(
+                      item.nama,
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () => _deleteData(item['id']),
+                    subtitle: Text(
+                      "${item.keterangan} (${item.tanggal.substring(0, )})",
+                      style: TextStyle(color: Colors.black54),
                     ),
-                  ],
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.edit, color: Colors.teal),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (_) => EditKehadiranPage(kehadiran: item),
+                              ),
+                            ).then((_) => setState(() {}));
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            // Menampilkan dialog konfirmasi
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text("Konfirmasi Hapus"),
+                                  content: Text(
+                                    "Apakah Anda yakin ingin menghapus data ini?",
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      child: Text("Batal"),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text("Hapus"),
+                                      onPressed: () {
+                                        if (item.id != null) {
+                                          _deleteData(item.id!);
+                                        }
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               );
             },
@@ -67,14 +140,14 @@ class _ListKehadiranPageState extends State<ListKehadiranPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => TambahKehadiranPage(),
-            )).then((_) => setState(() {})), // Refresh after return
-        child: Icon(Icons.add),
+        backgroundColor: Colors.teal,
+        onPressed:
+            () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => TambahKehadiranPage()),
+            ).then((_) => setState(() {})), // Refresh after return
+        child: Icon(Icons.add, color: Colors.black),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

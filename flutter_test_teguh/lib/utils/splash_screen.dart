@@ -1,11 +1,9 @@
-// import 'package:belajar_flutter2/study_case_meet_16/siswa_screen.dart';
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_test_teguh/constant/app_style.dart';
 import 'package:flutter_test_teguh/helper/preference.dart';
 
-import 'package:flutter_test_teguh/tugas_13_final/login_page.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -18,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   void changePage() {
     Future.delayed(Duration(seconds: 3), () async {
-      bool isLogin = await PreferenceHandler.getLogin();
+      // bool isLogin = await PreferenceHandler.getLogin();
       // print("isLogin: $isLogin");
       // if (isLogin) {
       //   return Navigator.pushNamedAndRemoveUntil(
@@ -34,11 +32,11 @@ class _SplashScreenState extends State<SplashScreen> {
       //   TugasTigasBelas.id,
       //   (route) => false,
       // );
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => LoginPage(),
-          ));
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => LoginPage(),
+      //     ));
     });
   }
 

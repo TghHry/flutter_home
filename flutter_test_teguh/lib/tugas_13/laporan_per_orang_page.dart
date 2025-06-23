@@ -1,45 +1,49 @@
 import 'package:flutter/material.dart';
+// import 'package:absensi_sederhana/database/db_helper.dart';
+import 'package:flutter_test_teguh/tugas_13/database/db_helper.dart';
 
-import 'package:flutter_test_teguh/tugas_13/db_helper.dart';
+class LaporanKehadiranPage extends StatefulWidget {
+  static const String id = "/LaporanKehadiranPage";
 
-class LaporanPerOrangPage extends StatefulWidget {
   @override
-  _LaporanPerOrangPageState createState() => _LaporanPerOrangPageState();
+  _LaporanKehadiranPageState createState() => _LaporanKehadiranPageState();
 }
 
-class _LaporanPerOrangPageState extends State<LaporanPerOrangPage> {
-  Map<String, int> laporan = {};
+class _LaporanKehadiranPageState extends State<LaporanKehadiranPage> {
+  Map<String, Map<String, int>> laporanPerOrang = {};
 
   Future<void> loadLaporan() async {
-    //query SQLite untuk menghitung absensi setiap orang
-    final db = await DbHelper.db();
+    final db = await DbHelper.initDB();
     final result = await db.rawQuery('''
-    SELECT nama, keterangan, COUNT(*) as jumlah 
+    SELECT nama, 
+           SUM(CASE WHEN keterangan = 'Hadir' THEN 1 ELSE 0 END) AS Hadir,
+           SUM(CASE WHEN keterangan = 'Izin' THEN 1 ELSE 0 END) AS Izin,
+           SUM(CASE WHEN keterangan = 'Alpha' THEN 1 ELSE 0 END) AS Alpha
     FROM kehadiran 
-    GROUP BY nama, keterangan
+    GROUP BY nama
     ''');
 
     setState(() {
-      // Group laporan: { "Teguh": {"Hadir": 2, "Alpha": 1}, ... }
       Map<String, Map<String, int>> laporanBaru = {};
 
       for (var row in result) {
         String nama = row['nama'] as String? ?? '';
-        String ket = row['keterangan'] as String? ?? 'Tidak Diketahui';
-        int jumlah = row['jumlah'] as int? ?? 0;
+        int hadir = row['Hadir'] as int? ?? 0;
+        int izin = row['Izin'] as int? ?? 0;
+        int alpha = row['Alpha'] as int? ?? 0;
 
-        laporanBaru[nama] = laporanBaru[nama] ??
-            {}; //membuat struktur Map agar data bisa diakses perorang dan per keterangan
-        laporanBaru[nama]![ket] = jumlah;
+        laporanBaru[nama] = {
+          'Hadir': hadir,
+          'Izin': izin,
+          'Alpha': alpha,
+        };
       }
 
       laporanPerOrang = laporanBaru;
     });
   }
 
-  Map<String, Map<String, int>> laporanPerOrang = {};
-
-  @override
+ @override
   void initState() {
     super.initState();
     loadLaporan();
@@ -48,26 +52,57 @@ class _LaporanPerOrangPageState extends State<LaporanPerOrangPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffEEEFE0),
       appBar: AppBar(
-        title: Text("Laporan Per Orang"),
-        actions: [
-          IconButton(onPressed: loadLaporan, icon: Icon(Icons.refresh))
-        ],
+        leading: Container(),
+        backgroundColor: Colors.teal[300],
+        title: Text("Laporan Kehadiran", style: TextStyle(color: Colors.black)),
+        centerTitle: true,
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        padding: EdgeInsets.all(16),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          childAspectRatio: 1,
+        ),
         itemCount: laporanPerOrang.length,
         itemBuilder: (context, index) {
           String nama = laporanPerOrang.keys.elementAt(index);
           var data = laporanPerOrang[nama]!;
           return Card(
-            child: ListTile(
-              title: Text(nama),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            color: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Hadir: ${data['Hadir'] ?? 0}"),
-                  Text("Izin: ${data['Izin'] ?? 0}"),
-                  Text("Alpha: ${data['Alpha'] ?? 0}"),
+                  Icon(Icons.person, color: Colors.teal, size: 40),
+                  SizedBox(height: 8),
+                  Text(
+                    nama,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 4),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Hadir: ${data['Hadir'] ?? 0}"),
+                        Text("Izin: ${data['Izin'] ?? 0}"),
+                        Text("Alpha: ${data['Alpha'] ?? 0}"),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
